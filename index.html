@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="no-referrer">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="专业全屋整装、新房翻新、旧房翻新、工装设计、全屋定制一站式装修服务">
+    <title>家合装饰 | 一站式高端装修设计</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+        :root {
+            --color-primary: #2563eb;
+            --color-primary-light: #3b82f6;
+            --color-primary-gradient: linear-gradient(135deg, #2563eb, #60a5fa);
+            --color-text-main: #1f2937;
+            --color-text-sub: #6b7280;
+            --color-bg-main: #ffffff;
+            --color-bg-card: #f9fafb;
+            --color-bg-section: #f3f4f6;
+            --color-border: #e5e7eb;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --color-fav: #ef4444;
+        }
+        [data-theme="dark"] {
+            --color-primary: #3b82f6;
+            --color-primary-light: #60a5fa;
+            --color-text-main: #f3f4f6;
+            --color-text-sub: #9ca3af;
+            --color-bg-main: #111827;
+            --color-bg-card: #1f2937;
+            --color-bg-section: #182234;
+            --color-border: #374151;
+        }
+        body {
+            background-color: var(--color-bg-main);
+            color: var(--color-text-main);
+        }
+        a {text-decoration: none;color: inherit;}
+        ul {list-style: none;}
+        img {max-width: 100%;display: block;}
+        .container {max-width: 1440px;margin: 0 auto;padding: 0 24px;}
+        .section {padding: 80px 0;}
+        .section-bg {background-color: var(--color-bg-section);}
+        .section-title {text-align: center;margin-bottom: 60px;}
+        .section-title h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -10px;
+            width: 60px;
+            height: 3px;
+            background: var(--color-primary-gradient);
+            border-radius: 2px;
+        }
+        .section-title p {color: var(--color-text-sub);font-size: 16px;margin-top: 16px;}
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: #f39c12;
+            color: #fff;
+            border-radius: 4px;
+            font-weight: 500;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {background: #e67e22;transform: translateY(-3px);box-shadow: var(--shadow-lg);}
+
+        /* 导航 */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background-color: var(--color-bg-card);
+            border-bottom: 1px solid var(--color-border);
+        }
+        .nav {display: flex;align-items: center;justify-content: space-between;height: 70px;}
+        .logo {font-size: 24px;font-weight: 700;color: var(--color-primary);}
+        .nav-menu {display: flex;gap: 36px;}
+        .nav-menu a {
+            font-size: 16px;
+            font-weight: 500;
+            position: relative;
+            padding: 8px 0;
+        }
+        .nav-menu a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+        .nav-menu a:hover::after {width: 100%;}
+        .theme-toggle {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            background-color: var(--color-bg-section);
+            border: 1px solid var(--color-border);
+            cursor: pointer;
+            margin-left: 12px;
+        }
+        .theme-toggle:hover {background-color: var(--color-primary);color: #fff;}
+        @media (max-width: 992px) {.nav-menu {display: none;}}
+
+        /* 横幅 */
+        .banner {
+            height: 85vh;
+            min-height: 500px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+        .banner-bg {position: absolute;inset: 0;z-index: -1;}
+        .banner-bg img {width: 100%;height: 100%;object-fit: cover;}
+        .banner-mask {position: absolute;inset: 0;background-color: rgba(0, 0, 0, 0.55);}
+        .banner-content {max-width: 800px;padding: 0 24px;z-index: 1;}
+        .banner-content h1 {font-size: 52px;margin-bottom: 24px;line-height: 1.2;}
+        .banner-content p {font-size: 20px;margin-bottom: 36px;opacity: 0.9;}
+
+        /* 房屋类型 */
+        .house-grid {display: grid;grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));gap: 32px;}
+        .house-card {
+            background-color: var(--color-bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid var(--color-border);
+        }
+        .house-card:hover {transform: translateY(-8px);box-shadow: var(--shadow-lg);}
+        .house-card-img {height: 360px;overflow: hidden;}
+        .house-card-img img {width: 100%;height: 100%;object-fit: cover;transition: transform 0.6s ease;}
+        .house-card:hover .house-card-img img {transform: scale(1.08);}
+        .house-card-text {padding: 24px;}
+        .house-card-text h3 {font-size: 22px;margin-bottom: 16px;color: var(--color-primary);}
+        .tag-list {display: flex;flex-wrap: wrap;gap: 8px;}
+        .tag-list span {
+            padding: 4px 12px;
+            background-color: var(--color-bg-section);
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--color-text-sub);
+        }
+
+        /* 装修模式 */
+        .mode-wrap {
+            background-color: var(--color-bg-card);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+        }
+        .mode-tags {display: flex;flex-wrap: wrap;gap: 16px;justify-content: center;}
+        .mode-tags span {
+            padding: 10px 24px;
+            border: 1px solid var(--color-border);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .mode-tags span:hover {background-color: var(--color-primary);color: #fff;border-color: var(--color-primary);}
+
+        /* =====设计风格：两行横向滚动+左右切换按钮===== */
+        .style-box{position:relative;padding:0 50px;}
+        /* 左右切换按钮 */
+        .scroll-arrow{
+            width:40px;height:40px;
+            background:#fff;
+            box-shadow:var(--shadow-md);
+            border:none;
+            border-radius:50%;
+            font-size:18px;
+            position:absolute;
+            top:50%;transform:translateY(-50%);
+            z-index:10;cursor:pointer;
+        }
+        .arrow-left{left:5px;}
+        .arrow-right{right:5px;}
+        .style-scroll-wrap{
+            width:100%;
+            overflow-x:auto;
+            overflow-y:hidden;
+            padding:10px 0 20px;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            cursor:grab;
+        }
+        .style-scroll-wrap:active{cursor:grabbing;}
+        .style-scroll-wrap::-webkit-scrollbar{height:6px}
+        .style-scroll-wrap::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
+        /* 两行布局 */
+        .style-grid{
+            display:grid;
+            grid-template-columns: repeat(6,280px);
+            grid-template-rows: 300px 300px;
+            gap:24px;
+            width:max-content;
+        }
+        .style-item {
+            width:280px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            position: relative;
+            height: 300px;
+        }
+        .style-item img {width: 100%;height: 100%;object-fit: cover;transition: transform 0.5s ease;cursor:pointer;}
+        .style-item:hover img {transform: scale(1.1);}
+        .style-name {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 16px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: #fff;
+            font-size: 18px;
+        }
+        /* 收藏按钮：纯文字爱心 */
+        .fav-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#999;
+            transition: all 0.2s;
+        }
+        .fav-btn.active {
+            color:#ef4444;
+            background:#ffffff;
+            box-shadow: 0 4px 12px rgba(239,68,68,0.2);
+        }
+        .fav-btn:hover:not(.active){
+            background:rgba(255,255,255,0.95);
+        }
+
+        /* 右侧悬浮收藏栏 */
+        .fav-sidebar-fixed {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index:998;
+            display:flex;
+            flex-direction:column;
+            gap:12px;
+        }
+        .fav-sidebar-btn{
+            width:50px;
+            height:50px;
+            background:var(--color-primary);
+            color:#fff;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:20px;
+            box-shadow:var(--shadow-md);
+            cursor:pointer;
+            position:relative;
+        }
+        .fav-count-badge{
+            position:absolute;
+            top:-5px;
+            right:-5px;
+            width:22px;
+            height:22px;
+            background:#ef4444;
+            border-radius:50%;
+            font-size:12px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .fav-clear-fixed{
+            background:#999;
+        }
+
+        /* =====大图预览弹窗【修正关闭按钮露出】===== */
+        .preview-modal{
+            display:none;
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,0.92);
+            z-index:9999;
+            align-items:center;
+            justify-content:center;
+            padding:30px;
+        }
+        .preview-modal-box{
+            max-width:92%;
+            max-height:92vh;
+            position:relative;
+        }
+        #previewImg{
+            max-width:100%;
+            max-height:88vh;
+            border-radius:var(--radius-md);
+            object-fit:contain;
+            transition:transform 0.1s;
+            cursor:grab;
+        }
+        #previewImg:active{cursor:grabbing;}
+        /* 关闭按钮 移出盒子外，完整显示 */
+        .preview-close{
+            position:absolute;
+            top:-45px;
+            right:0;
+            color:#fff;
+            font-size:36px;
+            cursor:pointer;
+            z-index:999;
+            width:40px;
+            height:40px;
+            line-height:40px;
+            text-align:center;
+        }
+
+        /* 施工工艺 */
+        .process-wrap {display: grid;grid-template-columns: 1fr 1fr;gap: 40px;align-items: center;}
+        .process-img {border-radius: var(--radius-lg);overflow: hidden;box-shadow: var(--shadow-md);}
+        .process-list {display: flex;flex-direction: column;gap: 20px;}
+        .process-item {
+            padding: 20px;
+            background-color: var(--color-bg-card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-sm);
+        }
+        .process-item h4 {color: var(--color-primary);margin-bottom: 8px;font-size: 18px;}
+        .process-item p {color: var(--color-text-sub);font-size: 15px;}
+        @media (max-width: 992px) {.process-wrap {grid-template-columns: 1fr;}}
+
+        /* 材料 */
+        .material-grid {display: grid;grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));gap: 32px;}
+        .material-card {
+            background-color: var(--color-bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease;
+        }
+        .material-card:hover {transform: translateY(-6px);}
+        .material-card-img {height: 250px;}
+        .material-card-text {padding: 24px;}
+        .material-card-text h4 {font-size: 20px;margin-bottom: 12px;color: var(--color-primary);}
+        .material-card-text p {color: var(--color-text-sub);font-size: 15px;}
+
+        /* 定制软装【优化排版】 */
+        .custom-soft-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap:36px;
+        }
+        .double-card {
+            background-color: var(--color-bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-sm);
+            transition: translateY 0.3s;
+        }
+        .double-card:hover{transform: translateY(-6px);box-shadow:var(--shadow-md);}
+        .double-card-img {height: 400px;}
+        .double-card-img img{width:100%;height:100%;object-fit:cover;}
+        .double-card-text {padding: 28px;}
+        .double-card-text h3 {font-size: 22px;margin-bottom: 16px;color: var(--color-primary);}
+        .double-card-text p {color: var(--color-text-sub);line-height:1.7;}
+        @media (max-width: 768px) {.custom-soft-grid {grid-template-columns: 1fr;}}
+
+        /* 咨询弹窗 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-box {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 350px;
+        }
+        .close-btn {margin-top: 20px;}
+
+        /* 收藏页面切换 */
+        .fav-page {display: none;min-height: 80vh;}
+        .fav-page.active {display: block;}
+        .main-page {display: block;}
+        .main-page.hide {display: none;}
+        .fav-empty {text-align: center;padding: 80px 0;font-size: 20px;color: var(--color-text-sub);}
+        .back-btn {margin-top: 30px;}
+        .fav-operate-box{
+            text-align:center;
+            margin-bottom:40px;
+            display:flex;
+            gap:20px;
+            justify-content:center;
+        }
+        .danger-btn{
+            background:#ef4444;
+        }
+        .danger-btn:hover{
+            background:#dc2626;
+        }
+
+        /* 页脚 */
+        .footer {
+            padding: 40px 0;
+            background-color: var(--color-bg-card);
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+        }
+        .footer p {color: var(--color-text-sub);margin-bottom: 8px;}
+        img[loading="lazy"] {background: #eee;}
+    </style>
+</head>
+<body>
+    <!--右侧悬浮收藏-->
+    <div class="fav-sidebar-fixed">
+        <div class="fav-sidebar-btn" id="sidebarOpenFav">
+            <i class="fa fa-heart"></i>
+            <span class="fav-count-badge" id="favNumBadge">0</span>
+        </div>
+        <div class="fav-sidebar-btn fav-clear-fixed" id="sidebarClearAll">
+            <i class="fa fa-trash"></i>
+        </div>
+    </div>
+
+    <!--大图预览弹窗【缩放版】-->
+    <div class="preview-modal" id="previewModal">
+        <div class="preview-modal-box">
+            <span class="preview-close" id="previewClose">×</span>
+            <img src="" alt="大图预览" id="previewImg">
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">家合装饰</div>
+                <ul class="nav-menu">
+                    <li><a href="#house">房屋类型</a></li>
+                    <li><a href="#mode">装修模式</a></li>
+                    <li><a href="#style">设计风格</a></li>
+                    <li><a href="#process">施工工艺</a></li>
+                    <li><a href="#material">选材用料</a></li>
+                    <li><a href="#custom">定制软装</a></li>
+                    <li><a href="javascript:;" id="goFav">我的收藏</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeBtn">
+                    <i class="fa fa-moon-o"></i> 切换主题
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-page">
+        <div class="banner">
+            <div class="banner-bg">
+                <img src="img/1.jpg" alt="装修全景" loading="lazy">
+            </div>
+            <div class="banner-mask"></div>
+            <div class="banner-content">
+                <h1>匠心工艺 · 环保家装</h1>
+                <p>一站式全屋整装 | 零甲醛材料 | 十年质保 | 透明报价 | 工地直播</p>
+                <button class="btn" onclick="openModal()">免费上门量房</button>
+            </div>
+        </div>
+
+        <section class="section" id="house">
+            <div class="container">
+                <div class="section-title">
+                    <h2>房屋装修类型</h2>
+                    <p>覆盖全品类家装、工装及空间局部改造服务</p>
+                </div>
+                <div class="house-grid">
+                    <div class="house-card">
+                        <div class="house-card-img">
+                            <img src="img/2.jpg" alt="家装服务" loading="lazy">
+                        </div>
+                        <div class="house-card-text">
+                            <h3>家装类装修</h3>
+                            <div class="tag-list">
+                                <span>新房装修</span><span>毛坯装修</span><span>老房翻新</span>
+                                <span>二手房改造</span><span>局部翻新</span><span>精装房改造</span><span>出租房简装</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="house-card">
+                        <div class="house-card-img">
+                            <img src="img/3.jpg" alt="工装服务" loading="lazy">
+                        </div>
+                        <div class="house-card-text">
+                            <h3>工装类装修</h3>
+                            <div class="tag-list">
+                                <span>办公室装修</span><span>商铺装修</span><span>门店装修</span>
+                                <span>餐饮店装修</span><span>写字楼装修</span><span>直播间装修</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="house-card">
+                        <div class="house-card-img">
+                            <img src="img/4.jpg" alt="空间细分" loading="lazy">
+                        </div>
+                        <div class="house-card-text">
+                            <h3>空间细分改造</h3>
+                            <div class="tag-list">
+                                <span>客厅装修</span><span>卧室装修</span><span>厨卫改造</span>
+                                <span>阳台改造</span><span>玄关设计</span><span>儿童房设计</span><span>衣帽间定制</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-bg" id="mode">
+            <div class="container">
+                <div class="section-title">
+                    <h2>装修合作模式</h2>
+                    <p>多种合作方式，满足不同预算与需求</p>
+                </div>
+                <div class="mode-wrap">
+                    <div class="mode-tags">
+                        <span>全屋整装</span><span>基装（基础装修）</span><span>整装套餐</span>
+                        <span>半包</span><span>全包</span><span>清包</span><span>套餐装修</span><span>个性化定制装修</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="style">
+            <div class="container">
+                <div class="section-title">
+                    <h2>主流设计风格</h2>
+                    <p>左右按钮/鼠标拖拽滑动；♡未收藏 / ❤已收藏；点击图片预览</p>
+                </div>
+                <!--带左右箭头+两行横向滚动-->
+                <div class="style-box">
+                    <button class="scroll-arrow arrow-left" id="scrollLeftBtn">&lt;</button>
+                    <div class="style-scroll-wrap" id="scrollWrap">
+                        <div class="style-grid" id="styleGrid">
+                            <!--第一行6个-->
+                            <div class="style-item" data-id="1" data-name="现代简约">
+                                <img src="img/5.jpg" alt="现代简约" loading="lazy" class="preview-img">
+                                <div class="style-name">现代简约</div>
+                                <button class="fav-btn" data-fid="1">♡</button>
+                            </div>
+                            <div class="style-item" data-id="2" data-name="轻奢风格">
+                                <img src="img/6.jpg" alt="轻奢风格" loading="lazy" class="preview-img">
+                                <div class="style-name">轻奢风格</div>
+                                <button class="fav-btn" data-fid="2">♡</button>
+                            </div>
+                            <div class="style-item" data-id="3" data-name="北欧风">
+                                <img src="img/7.jpg" alt="北欧风" loading="lazy" class="preview-img">
+                                <div class="style-name">北欧风</div>
+                                <button class="fav-btn" data-fid="3">♡</button>
+                            </div>
+                            <div class="style-item" data-id="4" data-name="新中式">
+                                <img src="img/8.jpg" alt="新中式" loading="lazy" class="preview-img">
+                                <div class="style-name">新中式</div>
+                                <button class="fav-btn" data-fid="4">♡</button>
+                            </div>
+                            <div class="style-item" data-id="5" data-name="奶油风">
+                                <img src="img/9.jpg" alt="奶油风" loading="lazy" class="preview-img">
+                                <div class="style-name">奶油风</div>
+                                <button class="fav-btn" data-fid="5">♡</button>
+                            </div>
+                            <div class="style-item" data-id="6" data-name="法式 & 美式">
+                                <img src="img/10.jpg" alt="法式/美式" loading="lazy" class="preview-img">
+                                <div class="style-name">法式 & 美式</div>
+                                <button class="fav-btn" data-fid="6">♡</button>
+                            </div>
+                            <!--第二行6个-->
+                            <div class="style-item" data-id="7" data-name="工业风 & 侘寂风">
+                                <img src="img/11.jpg" alt="工业风/侘寂风" loading="lazy" class="preview-img">
+                                <div class="style-name">工业风 & 侘寂风</div>
+                                <button class="fav-btn" data-fid="7">♡</button>
+                            </div>
+                            <div class="style-item" data-id="8" data-name="复古风 & 地中海">
+                                <img src="img/12.jpg" alt="复古风/地中海" loading="lazy" class="preview-img">
+                                <div class="style-name">复古风 & 地中海</div>
+                                <button class="fav-btn" data-fid="8">♡</button>
+                            </div>
+                            <div class="style-item" data-id="9" data-name="原木风">
+                                <img src="img/13.jpg" alt="原木风" loading="lazy" class="preview-img">
+                                <div class="style-name">原木风</div>
+                                <button class="fav-btn" data-fid="9">♡</button>
+                            </div>
+                            <div class="style-item" data-id="10" data-name="极简黑白">
+                                <img src="img/14.jpg" alt="极简黑白" loading="lazy" class="preview-img">
+                                <div class="style-name">极简黑白</div>
+                                <button class="fav-btn" data-fid="10">♡</button>
+                            </div>
+                            <div class="style-item" data-id="11" data-name="田园风">
+                                <img src="img/15.jpg" alt="田园风" loading="lazy" class="preview-img">
+                                <div class="style-name">田园风</div>
+                                <button class="fav-btn" data-fid="11">♡</button>
+                            </div>
+                            <div class="style-item" data-id="12" data-name="港式轻奢">
+                                <img src="img/16.jpg" alt="港式轻奢" loading="lazy" class="preview-img">
+                                <div class="style-name">港式轻奢</div>
+                                <button class="fav-btn" data-fid="12">♡</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="scroll-arrow arrow-right" id="scrollRightBtn">&gt;</button>
+                </div>
+                <div class="design-desc" style="margin-top:40px;padding:24px;background:var(--color-bg-card);border:1px solid var(--color-border);border-radius:var(--radius-md);color:var(--color-text-sub)">
+                    <strong>设计服务范围：</strong>平面布局图、施工图、效果图、全景VR设计、全屋定制、户型优化、软装设计、硬装设计、色彩搭配、空间规划、实景落地。
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-bg" id="process">
+            <div class="container">
+                <div class="section-title">
+                    <h2>标准施工工艺</h2>
+                    <p>持证施工，每一道工序严格把控</p>
+                </div>
+                <div class="process-wrap">
+                    <div class="process-img">
+                        <img src="img/15.jpg" alt="施工现场" loading="lazy">
+                    </div>
+                    <div class="process-list">
+                        <div class="process-item"><h4>基础工程</h4><p>墙体拆改、砌墙、墙面找平、地面找平、铲墙皮、挂网防裂</p></div>
+                        <div class="process-item"><h4>水电工程</h4><p>水电改造、强弱电分离、水管走顶、防水工程、闭水试验、管线铺设、回路设计、厨卫防水</p></div>
+                        <div class="process-item"><h4>泥瓦工程</h4><p>贴砖、墙地砖铺贴、勾缝、美缝、大理石铺贴、门槛石安装、地漏安装</p></div>
+                        <div class="process-item"><h4>木作工程</h4><p>吊顶造型、石膏线、衣柜柜体、电视背景墙、玄关柜、吊顶龙骨、门套制作</p></div>
+                        <div class="process-item"><h4>油漆工程</h4><p>墙面刷漆、乳胶漆、墙面调色、木器漆、底漆面漆、墙面打磨</p></div>
+                        <div class="process-item"><h4>收尾工程</h4><p>安装工程、开荒保洁、竣工验收、巡检、工程监理</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="material">
+            <div class="container">
+                <div class="section-title"><h2>主材 & 辅材选材</h2><p>一线品牌材料，环保安全有保障</p></div>
+                <div class="material-grid">
+                    <div class="material-card"><div class="material-card-img"><img src="https://picsum.photos/id/1041/600/300" alt="主材" loading="lazy"></div><div class="material-card-text"><h4>主材品类</h4><p>地板、瓷砖、卫浴洁具、橱柜、木门、灯具、开关插座、集成吊顶、全屋定制柜体、淋浴房、五金配件、壁纸/墙布、大理石、岩板</p></div></div>
+                    <div class="material-card"><div class="material-card-img"><img src="https://picsum.photos/id/1028/600/300" alt="辅材" loading="lazy"></div><div class="material-card-text"><h4>辅材品类</h4><p>水泥、沙子、腻子粉、乳胶漆、防水卷材、水管、电线、线管、龙骨、石膏板、生态板、密封胶、玻璃胶</p></div></div>
+                    <div class="material-card"><div class="material-card-img"><img src="https://picsum.photos/id/1069/600/300" alt="热门材质" loading="lazy"></div><div class="material-card-text"><h4>热门环保材质</h4><p>实木、多层实木板、颗粒板、欧松板、岩板、大理石、柔光砖、哑光砖、木地板、防水石膏板</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!--【优化后的定制软装区域】 -->
+        <section class="section section-bg" id="custom">
+            <div class="container">
+                <div class="section-title">
+                    <h2>全屋定制 & 软装搭配</h2>
+                    <p>一体化设计，兼顾实用与美观，一站式落地搭配</p>
+                </div>
+                <div class="custom-soft-grid">
+                    <div class="double-card">
+                        <div class="double-card-img">
+                            <img src="img/7.jpg" alt="全屋定制" loading="lazy">
+                        </div>
+                        <div class="double-card-text">
+                            <h3>全屋定制系列</h3>
+                            <p>整体衣柜、入户鞋柜、餐边柜、酒柜、电视柜、阳台储物柜、榻榻米、玄关柜、衣柜移门、定制柜体板材、柜门样式、抽屉收纳、静音五金铰链等全品类定制。</p>
+                        </div>
+                    </div>
+                    <div class="double-card">
+                        <div class="double-card-img">
+                            <img src="img/17.jpg" alt="软装搭配" loading="lazy">
+                        </div>
+                        <div class="double-card-text">
+                            <h3>家居软装搭配</h3>
+                            <p>全屋窗帘定制、地毯、装饰挂画、工艺摆件、氛围灯具、沙发选型、软硬包、全屋色彩配色、绿植软装陈列，从硬装收尾到软装落地一站式搭配。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!--咨询弹窗-->
+    <div class="modal" id="consultModal">
+        <div class="modal-box">
+            <h3>在线咨询</h3>
+            <p>服务热线：159 12345678</p>
+            <p>我们将第一时间为您解答疑问、预约上门服务！</p>
+            <button class="btn close-btn" onclick="closeModal()">关闭</button>
+        </div>
+    </div>
+
+    <!--收藏页面-->
+    <div class="fav-page" id="favPage">
+        <div class="container section">
+            <div class="section-title"><h2>我的收藏</h2><p>已收藏的装修风格案例</p></div>
+            <div class="fav-operate-box">
+                <button class="btn danger-btn" id="clearAllFav">一键清空全部收藏</button>
+                <button class="btn back-btn" id="backHome">返回首页</button>
+            </div>
+            <div class="style-grid" id="favGrid" style="flex-wrap:wrap;width:auto;gap:24px;grid-template-columns:repeat(auto-fill,280px);">
+            </div>
+            <div class="fav-empty" id="favEmpty" style="display:none;"><p>暂无收藏内容，快去挑选喜欢的风格吧！</p></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>匠心工艺 | 环保家装 | 零甲醛 | 一线品牌材料 | 十年质保 | 终身维护</p>
+            <p>© 2026 家合装饰 版权所有 </p>
+        </div>
+    </footer>
+
+    <script>
+        const FAV_KEY = "decor_favorite";
+        let favArr = JSON.parse(localStorage.getItem(FAV_KEY)) || [];
+        const previewModal = document.getElementById('previewModal');
+        const previewImg = document.getElementById('previewImg');
+        const previewClose = document.getElementById('previewClose');
+        const badgeNum = document.getElementById('favNumBadge');
+        const scrollWrap = document.getElementById('scrollWrap');
+        const scrollLeftBtn = document.getElementById('scrollLeftBtn');
+        const scrollRightBtn = document.getElementById('scrollRightBtn');
+
+        //=========1.左右按钮控制横向滚动=========
+        const scrollStep = 320;
+        scrollLeftBtn.onclick = ()=>{
+            scrollWrap.scrollBy({left:-scrollStep,behavior:'smooth'})
+        }
+        scrollRightBtn.onclick = ()=>{
+            scrollWrap.scrollBy({left:scrollStep,behavior:'smooth'})
+        }
+
+        //=========2.预览大图：滚轮缩放+拖拽+双击放大=========
+        let scale = 1;
+        let moveX = 0, moveY = 0;
+        let isDrag = false;
+        let startX, startY;
+        const maxScale = 3, minScale = 1;
+        //重置图片状态
+        function resetImgZoom(){
+            scale = 1; moveX = 0; moveY = 0;
+            previewImg.style.transform = `translate(${moveX}px,${moveY}px) scale(${scale})`;
+        }
+        //打开预览重置
+        document.querySelectorAll('.preview-img').forEach(img=>{
+            img.addEventListener('click',()=>{
+                previewImg.src = img.src;
+                previewModal.style.display = 'flex';
+                resetImgZoom();
+            })
+        })
+        //滚轮缩放
+        previewImg.addEventListener('wheel',e=>{
+            e.preventDefault();
+            const s = e.deltaY>0 ? 0.9 :1.1;
+            scale = Math.max(minScale,Math.min(maxScale,scale*s));
+            previewImg.style.transform = `translate(${moveX}px,${moveY}px) scale(${scale})`;
+        })
+        //鼠标拖拽
+        previewImg.onmousedown = e=>{
+            isDrag = true;
+            startX = e.clientX - moveX;
+            startY = e.clientY - moveY;
+        }
+        document.onmousemove = e=>{
+            if(!isDrag)return;
+            moveX = e.clientX - startX;
+            moveY = e.clientY - startY;
+            previewImg.style.transform = `translate(${moveX}px,${moveY}px) scale(${scale})`;
+        }
+        document.onmouseup = ()=>isDrag = false;
+        //双击放大
+        previewImg.ondblclick = ()=>{
+            if(scale>1) resetImgZoom();
+            else {scale = 2;previewImg.style.transform = `translate(0,0) scale(${scale})`;}
+        }
+        //关闭弹窗
+        previewModal.addEventListener('click',e=>{
+            if(e.target === previewModal || e.target === previewClose){
+                previewModal.style.display = 'none';
+                resetImgZoom();
+            }
+        })
+
+        // 弹窗开关
+        function openModal(){ document.getElementById('consultModal').style.display = 'flex'; }
+        function closeModal(){ document.getElementById('consultModal').style.display = 'none'; }
+        document.getElementById('consultModal').addEventListener('click',e=>{if(e.target===document.getElementById('consultModal'))closeModal()})
+
+        // 更新收藏数字角标
+        function updateBadge(){
+            badgeNum.innerText = favArr.length;
+            localStorage.setItem(FAV_KEY,JSON.stringify(favArr));
+        }
+
+        // 刷新所有收藏按钮：切换♡ / ❤ + active
+        function refreshBtnStatus(){
+            document.querySelectorAll('.fav-btn').forEach(btn=>{
+                let fid = Number(btn.dataset.fid);
+                let isCollect = favArr.find(item=>item.id === fid);
+                if(isCollect){
+                    btn.innerText = "❤";
+                    btn.classList.add('active');
+                }else{
+                    btn.innerText = "♡";
+                    btn.classList.remove('active');
+                }
+            })
+            updateBadge();
+        }
+
+        // 点击收藏事件委托
+        document.addEventListener('click',e=>{
+            if(!e.target.classList.contains('fav-btn')) return;
+            const btn = e.target;
+            const id = Number(btn.dataset.fid);
+            const itemWrap = btn.closest('.style-item');
+            const name = itemWrap.dataset.name;
+            const imgSrc = itemWrap.querySelector('img').src;
+            const index = favArr.findIndex(v=>v.id === id);
+
+            if(index > -1){
+                favArr.splice(index,1);
+            }else{
+                favArr.push({id,name,img:imgSrc});
+            }
+            refreshBtnStatus();
+            renderFavPage();
+        })
+
+        // 渲染收藏页面
+        function renderFavPage(){
+            const grid = document.getElementById('favGrid');
+            const emptyTip = document.getElementById('favEmpty');
+            grid.innerHTML = '';
+            if(favArr.length === 0){
+                emptyTip.style.display = 'block';
+                return;
+            }
+            emptyTip.style.display = 'none';
+            favArr.forEach(item=>{
+                let div = document.createElement('div');
+                div.className = 'style-item';
+                div.dataset.id = item.id;
+                div.dataset.name = item.name;
+                div.style.flexShrink = 'unset';
+                div.innerHTML = `
+                    <img src="${item.img}" class="preview-img">
+                    <div class="style-name">${item.name}</div>
+                    <button class="fav-btn active" data-fid="${item.id}">❤</button>
+                `;
+                grid.appendChild(div);
+            })
+            //收藏页图片预览绑定
+            grid.querySelectorAll('.preview-img').forEach(img=>{
+                img.onclick = ()=>{
+                    previewImg.src = img.src;
+                    previewModal.style.display = 'flex';
+                    resetImgZoom();
+                }
+            })
+        }
+
+        //清空全部收藏
+        function clearAll(){
+            if(!confirm('确定清空全部收藏？不可恢复！'))return;
+            favArr = [];
+            refreshBtnStatus();
+            renderFavPage();
+        }
+
+        //页面切换
+        function openCollectPage(){
+            document.querySelector('.main-page').classList.add('hide');
+            document.getElementById('favPage').classList.add('active');
+            renderFavPage();
+            window.scrollTo(0,0);
+        }
+        function backHome(){
+            document.querySelector('.main-page').classList.remove('hide');
+            document.getElementById('favPage').classList.remove('active');
+            refreshBtnStatus();
+            window.scrollTo(0,0);
+        }
+
+        //按钮绑定
+        document.getElementById('goFav').onclick = openCollectPage;
+        document.getElementById('backHome').onclick = backHome;
+        document.getElementById('sidebarOpenFav').onclick = openCollectPage;
+        document.getElementById('sidebarClearAll').onclick = clearAll;
+        document.getElementById('clearAllFav').onclick = clearAll;
+
+        //暗黑主题
+        const themeBtn = document.getElementById('themeBtn');
+        const root = document.documentElement;
+        const saveTheme = localStorage.getItem('theme');
+        if(saveTheme === 'dark') root.setAttribute('data-theme','dark');
+        themeBtn.onclick = ()=>{
+            if(root.dataset.theme === 'dark'){
+                root.removeAttribute('data-theme');
+                localStorage.setItem('theme','light');
+            }else{
+                root.dataset.theme = 'dark';
+                localStorage.setItem('theme','dark');
+            }
+        }
+
+        //页面初始化
+        window.onload = function(){
+            refreshBtnStatus();
+        }
+    </script>
+</body>
+</html>
